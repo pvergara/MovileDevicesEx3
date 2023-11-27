@@ -7,6 +7,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResultLauncher;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -19,6 +20,7 @@ public class MyViewHolder extends RecyclerView.ViewHolder {
     ImageView logo;
     private SimpsonCharacter simpsonCharacter;
     private AppCompatActivity containerActivity;
+    private ActivityResultLauncher<Intent> launcher;
 
     public MyViewHolder(View element) {
         super(element);
@@ -47,14 +49,26 @@ public class MyViewHolder extends RecyclerView.ViewHolder {
     }
 
     private final View.OnClickListener onElementClick = view -> {
-        Toast.makeText(view.getContext(), "Hola " + simpsonCharacter.getName(), Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(containerActivity, MainActivity2.class);
-        intent.putExtra("simpsonCharacter",this.simpsonCharacter);
-        containerActivity.startActivity(intent);
+        intent.putExtra("simpsonCharacter.characterId",this.simpsonCharacter.getCharacterId());
+        intent.putExtra("simpsonCharacter.name",this.simpsonCharacter.getName());
+        intent.putExtra("simpsonCharacter.fullName",this.simpsonCharacter.getFullName());
+        intent.putExtra("simpsonCharacter.age",this.simpsonCharacter.getAge());
+        intent.putExtra("simpsonCharacter.isFemale",this.simpsonCharacter.isFemale());
+        intent.putExtra("simpsonCharacter.description",this.simpsonCharacter.getDescription());
+        intent.putExtra("simpsonCharacter.resourceId",this.simpsonCharacter.getImageResourceId());
+
+        launcher.launch(intent);
+//        containerActivity.startActivity(intent);
     };
 
     public void setContainerActivity(AppCompatActivity containerActivity) {
 
         this.containerActivity = containerActivity;
+    }
+
+    public void setLauncher(ActivityResultLauncher<Intent> launcher) {
+
+        this.launcher = launcher;
     }
 }

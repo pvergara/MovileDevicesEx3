@@ -1,8 +1,10 @@
 package org.ecos.logic.moviledevicesex3.data;
 
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
+import androidx.activity.result.ActivityResultLauncher;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
@@ -16,6 +18,7 @@ import java.util.List;
 public class SimpsonCharacterAdapter extends RecyclerView.Adapter<MyViewHolder> {
     private final AppCompatActivity containerActivity;
     List<SimpsonCharacter> simpsonCharacterList = new ArrayList<>();
+    private ActivityResultLauncher<Intent> launcher;
 
     public SimpsonCharacterAdapter(AppCompatActivity containerActivity) {
         this.containerActivity = containerActivity;
@@ -57,6 +60,7 @@ public class SimpsonCharacterAdapter extends RecyclerView.Adapter<MyViewHolder> 
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         SimpsonCharacter simpsonCharacter = this.simpsonCharacterList.get(position);
         holder.setSimpsonCharacter(simpsonCharacter);
+        holder.setLauncher(launcher);
         holder.setContainerActivity(this.containerActivity);
         holder.getName().setText(simpsonCharacter.getName());
         holder.getYear().setText("" + simpsonCharacter.getAge());
@@ -66,5 +70,10 @@ public class SimpsonCharacterAdapter extends RecyclerView.Adapter<MyViewHolder> 
     @Override
     public int getItemCount() {
         return this.simpsonCharacterList.size();
+    }
+
+    public void setLauncher(ActivityResultLauncher<Intent> launcher) {
+
+        this.launcher = launcher;
     }
 }
