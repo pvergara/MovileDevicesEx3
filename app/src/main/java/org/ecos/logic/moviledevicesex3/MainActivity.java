@@ -10,7 +10,6 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import org.ecos.logic.moviledevicesex3.data.SimpsonCharacterAdapter;
@@ -22,9 +21,9 @@ public class MainActivity extends AppCompatActivity {
     private ActivityMainBinding binding;
     private final SimpsonCharacterAdapter simpsonCharacterAdapter = new SimpsonCharacterAdapter(this);
     private ActivityResultCallback<ActivityResult> activityResult = o -> {
-        if (o.getResultCode()==RESULT_OK){
+        if (o.getResultCode() == RESULT_OK) {
             Intent intent = o.getData();
-            Toast.makeText(this,intent.getStringExtra("lerele"),Toast.LENGTH_LONG).show();
+            Toast.makeText(this, intent.getStringExtra("lerele"), Toast.LENGTH_LONG).show();
         }
     };
     private ActivityResultLauncher<Intent> launcher;
@@ -36,13 +35,12 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        this.launcher = this.registerForActivityResult(this.contract,this.activityResult);
+        this.launcher = this.registerForActivityResult(this.contract, this.activityResult);
         simpsonCharacterAdapter.setLauncher(launcher);
         RecyclerView recyclerView = binding.recyclerViewId;
-        recyclerView.setLayoutManager(new GridLayoutManager(this,2));
+        recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
         recyclerView.setAdapter(this.simpsonCharacterAdapter);
 
     }
-
 
 }
