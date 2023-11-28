@@ -40,6 +40,13 @@ public class MainActivity extends AppCompatActivity {
     };
     private ActivityResultLauncher<Intent> launcher;
     private Map<Integer, Supplier<Boolean>> rubenMustLearnToUseHashes = new HashMap<>();
+    private Supplier<Boolean> booleanSupplier = () -> {
+        Intent intent = new Intent(this, MainActivity3.class);
+        launcher.launch(intent);
+        this.startActivity(intent);
+        return true;
+    };
+    ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,10 +62,8 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setAdapter(this.simpsonCharacterAdapter);
 
         Toast toast = Toast.makeText(this, "Submenú 1", Toast.LENGTH_SHORT);
-        this.rubenMustLearnToUseHashes.put(R.id.meditar, () -> {
-            Toast.makeText(this, "Editar", Toast.LENGTH_SHORT).show();
-            return true;
-        });
+
+        this.rubenMustLearnToUseHashes.put(R.id.meditar, this.booleanSupplier);
         this.rubenMustLearnToUseHashes.put(R.id.mborrar, () -> {
             Toast.makeText(this, "Borrar", Toast.LENGTH_SHORT).show();
             return true;
@@ -71,6 +76,7 @@ public class MainActivity extends AppCompatActivity {
             return true;
         });
     }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater menuInflater = getMenuInflater();
@@ -83,6 +89,7 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         return this.rubenMustLearnToUseHashes.get(item.getItemId()).get();
     }
+
     private final Supplier<Boolean> otro = () -> {
         Toast.makeText(this, "Otro", Toast.LENGTH_SHORT).show();
         return true;

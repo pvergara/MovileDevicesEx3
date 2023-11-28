@@ -54,4 +54,9 @@ public class SimpsonCharacter implements Serializable {
     public int getImageResourceId() {
         return imageResourceId;
     }
+
+    @Override
+    public String toString() {
+        return name + System.lineSeparator() + fullName;
+    }
 }
